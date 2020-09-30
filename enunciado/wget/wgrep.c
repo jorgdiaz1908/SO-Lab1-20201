@@ -12,12 +12,11 @@ void search( const char *const filename, char *comp){
 
     if(iF == NULL){
         printf("wgrep: cannot open file\n");
-        fclose(iF);
         exit(1);
     }
     while((read = getline(&line, &len, iF)) != -1){
         if(strstr(line, comp) != NULL){
-            printf("%s\n", line);
+            printf("%s", line);
         }
     }
     free(line);
@@ -26,6 +25,7 @@ void search( const char *const filename, char *comp){
 int main(int argc, char *argv[]) {
   char *name, linea;
   int i = 2;
+
   
   if(argc < 2){
       printf("wgrep: searchterm [file ...]\n");
@@ -37,11 +37,14 @@ int main(int argc, char *argv[]) {
   if(argc == 2){
     char *line = NULL;
     size_t len = 0;
-      linea =  getline(&line, &len, stdin);
-       if(strstr(line, string) != NULL){
+      while((linea =  getline(&line, &len, stdin)) != -1){
+if(strstr(line, string) != NULL){
             printf("%s", line);
-        }    
+        }    }
+
+       
   }
+
  
   for(i = 2; i < argc; ++i){
       name = argv[i];
